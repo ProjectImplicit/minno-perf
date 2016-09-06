@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "selenium": "bash selenium/runChrome.sh"
+    "selenium": "bash selenium/runChrome.sh",
+    "start" : "node simple/fr.js"
   },
   "repository": {
     "type": "git",
