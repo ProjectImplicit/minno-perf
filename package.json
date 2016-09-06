@@ -1,0 +1,23 @@
+{
+  "name": "pip-perf",
+  "version": "1.0.0",
+  "description": "performance tests for pip",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "selenium": "bash selenium/runChrome.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eladzlot/pip-perf.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/eladzlot/pip-perf/issues"
+  },
+  "homepage": "https://github.com/eladzlot/pip-perf#readme",
+  "dependencies": {
+    "browser-perf": "^1.4.11"
+  }
+}
