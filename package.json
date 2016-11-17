@@ -1,16 +1,18 @@
 {
-  "name": "pip-perf",
+  "name": "minno-perf",
   "version": "1.0.0",
-  "description": "performance tests for pip",
+  "description": "performance tests for minno",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "selenium": "bash selenium/runChrome.sh",
-    "start": "node simple/fr.js"
+
+    "opn:timer": "opn http://localhost:8080/pip/src/index.html?url=/minno-perf/timeout/vanilla/timer_test.js",
+    "opn:timerStep": "opn http://localhost:8080/pip/src/index.html?url=/minno-perf/timeout/vanilla/timerStep_test.js",
+    "opn:timerRaw": "opn http://localhost:8080/minno-perf/timeout/vanilla/timerRaw.html"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eladzlot/pip-perf.git"
+    "url": "git+https://github.com/eladzlot/minno-perf.git"
   },
   "author": "",
   "license": "Apache-2.0",
@@ -19,9 +21,6 @@
   },
   "homepage": "https://github.com/eladzlot/pip-perf#readme",
   "dependencies": {
-    "browser-perf": "^1.4.11"
-  },
-  "devDependencies": {
-    "cli-table": "^0.3.1"
+    "opn-cli": "^3.1.0"
   }
 }
