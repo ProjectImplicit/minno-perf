@@ -1,14 +1,16 @@
-define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(APIconstructor, statistics, createCsv) {
+define(['pipAPI', 'underscore'], function(APIconstructor, _) {
 
     var API = new APIconstructor();
-    var REPEAT_TIMES = 100;
-
-    API.addSettings('redirect', location.href + '#'); // prevent redirect so we have a chance to download...
+    var REPEAT_TIMES = 10;
 
     API.addSettings('onEnd', function(){
-        var logs = window.piGlobal.current.logs.map(function(log){return log.latency;});
-        statistics(logs);
-        createCsv(logs);
+        var logs = window.piGlobal.current.logs;
+        var delta = [];
+        for (var i = 0; i < REPEAT_TIMES; i++) delta.push(logs[2*i+1].latency - logs[2*i].latency);
+        console.log('average' , _.sum(delta) / delta.length);
+        console.log('max' , _.max(delta));
+        console.log('min' , _.min(delta));
+        //console.log('sd' , sd(logs));
     });
 
     API.addSequence([
@@ -28,13 +30,14 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
                         {
                             conditions: [{type:'inputEquals',value:'first'}],
                             actions: [
-                                {type:'resetTimer'}
+                                {type:'showStim',handle:'All'},
+                                {type: 'log'}
                             ]
                         },
                         {
                             conditions: [{type:'inputEquals',value:'second'}],
                             actions: [
-                                {type:'log'},
+                                {type: 'log'},
                                 {type:'endTrial'}
                             ]
                         }
@@ -42,7 +45,6 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
                 }
             ]
         }
-        
     ]);
 
     return API.script;
