@@ -8,7 +8,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
     API.addSettings('onEnd', function(){
         var logs = window.piGlobal.current.logs.map(function(log){return log.latency;});
         statistics(logs);
-        createCsv(logs);
+        createCsv({Minno:logs});
     });
 
     API.addSequence([
