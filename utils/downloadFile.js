@@ -66,7 +66,6 @@ define(function(){
             a.setAttribute('download', fileName);
         }
 
-
         a.href = rawFile;
         a.setAttribute('style', 'display:none;');
         D.body.appendChild(a);
