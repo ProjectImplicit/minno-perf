@@ -14,9 +14,8 @@
         "modules": true
     },
     "globals": {
-        "m" : true,
-        "require" : true,
-        "fetch" : true
+        "define" : true,
+        "require" : true
     },
     "extends": "eslint:recommended"
 }

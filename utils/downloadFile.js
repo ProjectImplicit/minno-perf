@@ -11,6 +11,8 @@ define(function(){
         return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) < 10 : false;
     }
 
+    function isSafari(){ return /constructor/i.test(window.HTMLElement) || window.safari;}
+
     /**
      * by @cssensei (from his colleagues at https://github.com/ifeelgoods) in issue #2391
      *
@@ -65,6 +67,9 @@ define(function(){
             a.setAttribute('target', '_blank');
             a.setAttribute('download', fileName);
         }
+
+        // this throws an error but saves the file nonetheless...
+        if (isSafari()) return location.href = rawFile;
 
         a.href = rawFile;
         a.setAttribute('style', 'display:none;');

@@ -1,7 +1,7 @@
 define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(APIconstructor, statistics, createCsv) {
 
     var API = new APIconstructor();
-    var REPEAT_TIMES = 1;
+    var REPEAT_TIMES = 100;
 
     API.addSettings('redirect', location.href + '#'); // prevent redirect so we have a chance to download...
 
@@ -50,5 +50,5 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
             case 2: accu.minno300.push(latency); break;
         }
         return accu;
-    };
+    }
 });
