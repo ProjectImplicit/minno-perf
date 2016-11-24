@@ -16,7 +16,7 @@ Inaccuracies can be caused by timer sampling, or by having background processes 
 **Arduino**: `PRESS:A` delay 100ms `PRESS:B`
 
 #### results
-Results can be found in the [results][./results] folder.
+Results can be found in the [results](./results) folder.
 The files are each a csv file with the content of the result of a single browser.
 The following table describes the columns:
 
