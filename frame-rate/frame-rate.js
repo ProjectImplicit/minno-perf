@@ -1,16 +1,15 @@
-define(['pipAPI', 'underscore'], function(APIconstructor, _) {
+define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(APIconstructor, statistics, createCsv) {
 
     var API = new APIconstructor();
     var REPEAT_TIMES = 10;
 
     API.addSettings('onEnd', function(){
         var logs = window.piGlobal.current.logs;
-        var delta = [];
-        for (var i = 0; i < REPEAT_TIMES; i++) delta.push(logs[2*i+1].latency - logs[2*i].latency);
-        console.log('average' , _.sum(delta) / delta.length);
-        console.log('max' , _.max(delta));
-        console.log('min' , _.min(delta));
-        //console.log('sd' , sd(logs));
+        var minnoLogs = {
+            displayLatency: logs.map(function(log){return log.latency;})
+        };
+        statistics(minnoLogs);
+        createCsv(minnoLogs);
     });
 
     API.addSequence([
