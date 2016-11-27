@@ -7,8 +7,9 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
 
     API.addSettings('onEnd', function(){
         var minnoLogs = window.piGlobal.current.logs.reduce(minnoReducer, {minno50:[], minno150:[], minno300:[]});
+        vanillaTimeout(minnoLogs, createCsv);
         statistics(minnoLogs.minno50);
-        createCsv(minnoLogs);
+        //createCsv(minnoLogs);
     });
 
     API.addTrialSets('timeout', [
@@ -51,4 +52,34 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
         }
         return accu;
     }
+
+    function now(){
+        return performance.now ? performance.now() : +new Date();
+    }
+
+    function testTimeout(results, delay, done){
+        var begin = now();
+        setTimeout(function(){
+            results.push(now()-begin);
+            if (results.length < REPEAT_TIMES) testTimeout(results, delay, done);
+            else done(results);
+        }, delay);
+    }
+
+    function vanillaTimeout(logs, done){
+        logs.vanilla50 = [];
+        logs.vanilla150 = [];
+        logs.vanilla300 = [];
+        testTimeout(logs.vanilla50, 50, function(){
+            console.log('finished vanilla50');
+            testTimeout(logs.vanilla150, 150, function(){
+                console.log('finished vanilla150');
+                testTimeout(logs.vanilla300, 300, function(){
+                    console.log('finished vanilla300');
+                    done(logs);
+                });
+            });
+        });
+    }
+
 });

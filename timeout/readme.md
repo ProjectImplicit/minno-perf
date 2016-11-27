@@ -1,6 +1,6 @@
 ### Experiment 3 - Can timers be trusted?
 Timers in javascript are notorious for being inaccurate.
-The inaccuracy stem from two things: first, browsers update their internal timer only at specific intervals, therefore timeouts can only trigger on these intervals.
+The inaccuracy stems from two things: first, browsers update their internal timer only at specific intervals, therefore timeouts can only trigger on these intervals.
 This is especially problematic on windows (older windows?) where the polling occurs only every 15ms or so.
 The second problem is that javascript is sensitive to background activity, and external tasks may grab the time where a timeout was supposed to fire.
 
