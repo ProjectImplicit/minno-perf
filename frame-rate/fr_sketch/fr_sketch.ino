@@ -17,12 +17,16 @@
 
 #include "Keyboard.h"
 
-const int swichPin = 4;
-const int sensorPin = 2;
-const int led = 13;
+#define swichPin = 4;
+#define sensorPin = 2;
+#define led = 13;
 
-const int KEY_FIRST = 65; // A
-const int KEY_SECOND = 66; // B
+#define KEY_FIRST = 65; // A
+#define KEY_SECOND = 66; // B
+
+unsigned long startTime;
+unsigned long endTime;
+boolean inProgress = false;
 
 void setup() {
   pinMode(sensorPin, INPUT);
@@ -35,12 +39,24 @@ void setup() {
 
 void loop() {
   if (digitalRead(swichPin) == HIGH) {
-    digitalWrite(13, HIGH); 
-    Keyboard.write(KEY_FIRST);
-    delay(100);
-    Keyboard.write(KEY_SECOND);
-    delay(150);
+    digitalWrite(led, HIGH);
+    return;
+
+    if (!inProgress) {
+        Keyboard.write(KEY_FIRST);
+        startTime = micros();
+        inProgress = true;
+    }
+
+    if (digitalRead(swichPin) == HIGH) {
+      Keyboard.write(KEY_SECOND);
+      endTime = micros();
+      delay(150);
+      Keyboard.println(endTime - startTime);
+      delay(150);
+      inProgress = false;
+    }
   } else {
-    digitalWrite(13, LOW); 
+    digitalWrite(led, LOW); 
   }
 }
