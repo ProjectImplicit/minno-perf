@@ -17,12 +17,12 @@
 
 #include "Keyboard.h"
 
-#define swichPin = 4;
-#define sensorPin = 2;
-#define led = 13;
+const int swichPin = 4;
+const int sensorPin = 2;
+const int led = 13;
 
-#define KEY_FIRST = 65; // A
-#define KEY_SECOND = 66; // B
+const int KEY_FIRST = 65; // A
+const int KEY_SECOND = 66; // B
 
 unsigned long startTime;
 unsigned long endTime;
