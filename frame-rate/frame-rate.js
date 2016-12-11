@@ -10,7 +10,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
         var minnoLogs = {
             displayLatency: logs.map(function(log,index){return [log.latency, arduinoInputs[index]];})
         };
-        createCsv(minnoLogs);
+        createCsv(minnoLogs,'arduinoLatency');
     });
 
     API.addSequence([
@@ -72,7 +72,9 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
         }
 
         function off(){
+            document.getElementById('canvas').focus();
             arduinoInputs.push(input.value.substr(1));
+            console.log(input.value, piGlobal.current.logs[piGlobal.current.logs.lenght-1]);
             parent.removeChild(input);
             input = null; // don't leak memory
         }

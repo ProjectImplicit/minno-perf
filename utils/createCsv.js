@@ -1,8 +1,8 @@
 define(['./downloadFile.js', './UAParser.js'], function(downloadFile, UAParser){
     
-    function createCsv(data){
+    function createCsv(data, extraHeaders){
         var csv = [
-            'Browser,"Browser Version","Short Browser Version",Engine,"Engine Version",OS,"OS Version",Measurement,Latency' 
+            'Browser,"Browser Version","Short Browser Version",Engine,"Engine Version",OS,"OS Version",Measurement,Latency'.concat(extraHeaders ? ',' : '', extraHeaders || '')
         ];
         var parser = new UAParser();
         var ua = parser.getResult();

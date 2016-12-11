@@ -18,8 +18,7 @@
 #include "Keyboard.h"
 
 const int swichPin = 4;
-const int sensorPin = 2;
-const int led = 13;
+const int sensorPin = 0;
 
 const int KEY_FIRST = 65; // A
 const int KEY_SECOND = 66; // B
@@ -31,7 +30,7 @@ boolean inProgress = false;
 void setup() {
   pinMode(sensorPin, INPUT);
   pinMode(swichPin, INPUT);
-  pinMode(led, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
   
   // initialize control over the keyboard:
   Keyboard.begin();
@@ -39,24 +38,30 @@ void setup() {
 
 void loop() {
   if (digitalRead(swichPin) == HIGH) {
-    digitalWrite(led, HIGH);
-    return;
+    digitalWrite(LED_BUILTIN, HIGH);
 
     if (!inProgress) {
-        Keyboard.write(KEY_FIRST);
+        Keyboard.press(KEY_FIRST);
         startTime = micros();
         inProgress = true;
+        delay(1);
+        Keyboard.release(KEY_FIRST);
     }
 
-    if (digitalRead(swichPin) == HIGH) {
-      Keyboard.write(KEY_SECOND);
+    if (digitalRead(sensorPin) == HIGH) {
+      Keyboard.press(KEY_SECOND);
       endTime = micros();
-      delay(150);
+      delay(1);
+      Keyboard.release(KEY_SECOND);      
+      delay(400);
       Keyboard.println(endTime - startTime);
+      Keyboard.press(KEY_RETURN);
       delay(150);
+      Keyboard.releaseAll();
       inProgress = false;
     }
   } else {
-    digitalWrite(led, LOW); 
+    inProgress = false;
+    digitalWrite(LED_BUILTIN, LOW); 
   }
 }
