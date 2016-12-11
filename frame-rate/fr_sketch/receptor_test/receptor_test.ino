@@ -15,21 +15,18 @@
 
 */
 
-#include "Keyboard.h" 
-
 const int sensorPin = 0;
-const int led = 13;
 int val = 0;
 
 void setup() {
   pinMode(sensorPin, INPUT);
-  pinMode(led, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
-  Serial.println(analogRead(sensorPin)); //Write the value of the photoresistor to the serial monitor.
-  delay(100); //short delay for faster response to light.
+//  Serial.println(analogRead(sensorPin)); //Write the value of the photoresistor to the serial monitor.
+//  delay(100); //short delay for faster response to light.
 
-  //val = digitalRead(sensorPin);
-  //digitalWrite(led, val);
+  val = digitalRead(sensorPin);
+  digitalWrite(LED_BUILTIN, val);
 }

@@ -39,6 +39,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
                             actions: [
                                 {type: 'log'},
                                 {type:'hideStim',handle:'All'},
+                                {type:'removeInput',handle : ['first','second']},
                                 {type:'setInput', input: arduinolisten() }
                             ]
                         },
@@ -62,6 +63,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
         function on(cb){
             input = document.createElement('input');
             input.style.position = 'fixed';
+            input.style.opacity = 0;
             parent.appendChild(input);
             input.focus();
             input.addEventListener('keydown', function(e){

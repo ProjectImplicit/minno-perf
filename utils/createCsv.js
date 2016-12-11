@@ -1,4 +1,4 @@
-define(['./downloadFile.js', './UAparser.js'], function(downloadFile, UAParser){
+define(['./downloadFile.js', './UAParser.js'], function(downloadFile, UAParser){
     
     function createCsv(data){
         var csv = [
