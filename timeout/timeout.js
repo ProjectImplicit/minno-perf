@@ -6,10 +6,10 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
     API.addSettings('redirect', location.href + '#'); // prevent redirect so we have a chance to download...
 
     API.addSettings('onEnd', function(){
-        var minnoLogs = window.piGlobal.current.logs.reduce(minnoReducer, {minno50:[], minno150:[], minno300:[]});
+        var minnoLogs = window.piGlobal.current.logs.reduce(minnoReducer, []);
         vanillaTimeout(minnoLogs, createCsv);
-        statistics(minnoLogs.minno50);
-        //createCsv(minnoLogs);
+        statistics(minnoLogs.filter(function(log){return log[0] === 'minno50';}));
+        createCsv(['Measurement', 'Latency'], minnoLogs);
     });
 
     API.addTrialSets('timeout', [
@@ -46,9 +46,9 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
     function minnoReducer(accu, log, index){
         var latency = log.latency;
         switch (index % 3){
-            case 0: accu.minno50.push(latency); break;
-            case 1: accu.minno150.push(latency); break;
-            case 2: accu.minno300.push(latency); break;
+            case 0: accu.minno50.push(['minno50', latency]); break;
+            case 1: accu.minno150.push(['minno150', latency]); break;
+            case 2: accu.minno300.push(['minno300', latency]); break;
         }
         return accu;
     }
@@ -60,26 +60,22 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
     function testTimeout(results, delay, done){
         var begin = now();
         setTimeout(function(){
-            results.push(now()-begin);
+            results.push(['vanilla' + delay, now()-begin]);
             if (results.length < REPEAT_TIMES) testTimeout(results, delay, done);
             else done(results);
         }, delay);
     }
 
     function vanillaTimeout(logs, done){
-        logs.vanilla50 = [];
-        logs.vanilla150 = [];
-        logs.vanilla300 = [];
-        testTimeout(logs.vanilla50, 50, function(){
+        testTimeout(logs, 50, function(){
             console.log('finished vanilla50');
-            testTimeout(logs.vanilla150, 150, function(){
+            testTimeout(logs, 150, function(){
                 console.log('finished vanilla150');
-                testTimeout(logs.vanilla300, 300, function(){
+                testTimeout(logs, 300, function(){
                     console.log('finished vanilla300');
                     done(logs);
                 });
             });
         });
     }
-
 });

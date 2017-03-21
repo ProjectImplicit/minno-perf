@@ -1,16 +1,15 @@
 define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(APIconstructor, statistics, createCsv) {
 
     var API = new APIconstructor();
-    var REPEAT_TIMES = 5;
-    var arduinoInputs = [];
+    var REPEAT_TIMES = 200;
+    var arduinoInputs = window.arduinoInputs = [];
 
     API.addSettings('redirect', location.href + '#'); // prevent redirect so we have a chance to download...
     API.addSettings('onEnd', function(){
-        var logs = window.piGlobal.current.logs;
-        var minnoLogs = {
-            displayLatency: logs.map(function(log,index){return [log.latency, arduinoInputs[index]];})
-        };
-        createCsv(minnoLogs);
+        var logs = window.piGlobal.current.logs.map(function(log){return log.latency;});
+        var arduino = arduinoInputs.map(function(row){return row.split(',');});
+        var minnoLogs =  logs.map(function(log,index){return ['minno', log].concat(arduino[index]);});
+        createCsv(['Measurement', 'Player Latency','showlatency', 'hidelatency', 'delay'], minnoLogs);
     });
 
     API.addSequence([
@@ -20,8 +19,8 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
             data: [
                 {
                     input: [ 
-                        {handle: 'first',on: 'keypressed',key:'A'},
-                        {handle: 'second',on: 'keypressed',key:'B'}
+                        {handle: 'first',on: 'keypressed',key:65},
+                        {handle: 'second',on: 'keypressed',key:66}
                     ],
 
                     stimuli: [ {media :' ', css: {background:'white', width:'100%', height:'100%'}} ],
@@ -30,6 +29,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
                         {
                             conditions: [{type:'inputEquals',value:'first'}],
                             actions: [
+                                {type:'custom', fn: () => console.log('first')},
                                 {type:'showStim',handle:'All'},
                                 {type:'resetTimer'}
                             ]
@@ -37,8 +37,10 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
                         {
                             conditions: [{type:'inputEquals',value:'second'}],
                             actions: [
+                                {type:'custom', fn: () => console.log('second')},
                                 {type: 'log'},
                                 {type:'hideStim',handle:'All'},
+                                {type:'removeInput', handle: 'All' },
                                 {type:'setInput', input: arduinolisten() }
                             ]
                         },
@@ -70,7 +72,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
         }
 
         function off(){
-            arduinoInputs.push(input.value.substr(1));
+            arduinoInputs.push(input.value.substr(1)); // first char caches the keypress from before
             parent.removeChild(input);
             input = null; // don't leak memory
         }
@@ -78,4 +80,3 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
         return {handle: 'arduinoValue', on:on, off:off};
     }
 });
-

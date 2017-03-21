@@ -1,5 +1,5 @@
 /*
- * This is a sanity check for the player.
+AB * This is a sanity check for the player.
  *
  * Just measure the latency between two consecutive keypresses.
  * Any delay at all here is a point of concern because it points to a lack of accuracy in the system clock
@@ -49,6 +49,21 @@ void setup() {
   Keyboard.begin();
 }
 
+void slowPrint(char chr, int wait){
+  Keyboard.press(chr);
+  delay(wait);
+  Keyboard.releaseAll();
+  delay(wait);      
+}
+
+void slowPrintLn(String str){  
+  const int lngth = str.length();
+  for (int i=0; i <= lngth; i++){
+    slowPrint(str[i], 100);
+  }
+  slowPrint('\n', 1000);
+}
+
 void loop() {  
   if (digitalRead(swichPin) == LOW) {
     state = CALIBRATE;
@@ -81,9 +96,8 @@ void loop() {
           hideTime = now;
           delay(100); // let the client bring up the input
           // deltaShow, deltaHide, deltaDisplayed
-          Keyboard.print(String(showTime - startTime) + ',' + String(hideTime - showTime) + ',' + String(DELAYS[delayPointer]));
-          Keyboard.print('\n'); // println isn't sending CR for some reason
-          delay(100);
+          slowPrintLn(String(showTime - startTime) + ',' + String(hideTime - showTime) + ',' + String(DELAYS[delayPointer]));
+          //Keyboard.print('\n'); // println isn't sending CR for some reason
           state = CALIBRATE;
         }
     }

@@ -18,14 +18,12 @@
 #include "Keyboard.h"
 
 const int swichPin = 4;
-const int sensorPin = 2;
 const int led = 13;
 
 const int KEY_FIRST = 65; // A
 const int KEY_SECOND = 66; // B
 
 void setup() {
-  pinMode(sensorPin, INPUT);
   pinMode(swichPin, INPUT);
   pinMode(led, OUTPUT);
   
