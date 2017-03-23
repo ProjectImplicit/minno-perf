@@ -1,4 +1,4 @@
-define(['./downloadFile.js', './UAparser.js'], function(downloadFile, UAParser){
+define(['./downloadFile.js', './UAParser.js'], function(downloadFile, UAParser){
     
     // headers is an array of descriptions for the data
     // data is an array of arrays with data corresponding to the headers

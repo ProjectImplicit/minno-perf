@@ -19,7 +19,6 @@
 
 const int swichPin = 4;
 const int sensorPin = 0;
-const int led = 13;
 
 const int KEY_FIRST = 65; // A
 const int KEY_SECOND = 66; // B
@@ -43,7 +42,7 @@ unsigned int state = CALIBRATE;
 void setup() {
   pinMode(sensorPin, INPUT);
   pinMode(swichPin, INPUT);
-  pinMode(led, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
   
   // initialize control over the keyboard:
   Keyboard.begin();
@@ -90,5 +89,5 @@ void loop() {
   
   }
 
-  digitalWrite(led, state == CALIBRATE ? LOW : HIGH);
+  digitalWrite(LED_BUILTIN, state == CALIBRATE ? LOW : HIGH);
 }
