@@ -6,10 +6,10 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
     API.addSettings('redirect', location.href + '#'); // prevent redirect so we have a chance to download...
 
     API.addSettings('onEnd', function(){
-        var minnoLogs = window.piGlobal.current.logs.reduce(minnoReducer, []);
-        vanillaTimeout(minnoLogs, createCsv);
-        statistics(minnoLogs.filter(function(log){return log[0] === 'minno50';}));
-        createCsv(['Measurement', 'Latency'], minnoLogs);
+        var minnoLogs = window.piGlobal.current.logs.map(minnoMap);
+        vanillaTimeout(minnoLogs, function(logs){
+            createCsv(['Measurement','delay','latency'], logs);
+        });
     });
 
     API.addTrialSets('timeout', [
@@ -43,37 +43,41 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
 
     return API.script;
 
-    function minnoReducer(accu, log, index){
+    function minnoMap(log, index){
         var latency = log.latency;
-        switch (index % 3){
-            case 0: accu.minno50.push(['minno50', latency]); break;
-            case 1: accu.minno150.push(['minno150', latency]); break;
-            case 2: accu.minno300.push(['minno300', latency]); break;
-        }
-        return accu;
+        var delay = 50 + 50 * (index % 3);
+        return ['minno', delay, latency];
     }
 
     function now(){
         return performance.now ? performance.now() : +new Date();
     }
 
-    function testTimeout(results, delay, done){
-        var begin = now();
-        setTimeout(function(){
-            results.push(['vanilla' + delay, now()-begin]);
-            if (results.length < REPEAT_TIMES) testTimeout(results, delay, done);
-            else done(results);
-        }, delay);
+    function testTimeout(delay, done){
+        var results = [];
+        test();
+
+        function test(){
+            if (results.length >= REPEAT_TIMES) return done(results); // end recursion
+            var begin = now();
+            setTimeout(function(){
+                results.push(['vanilla', delay, now()-begin]);
+                test(); // recursion
+            }, delay);
+        }
     }
 
-    function vanillaTimeout(logs, done){
-        testTimeout(logs, 50, function(){
+    function vanillaTimeout(results, done){
+        testTimeout(50, function(logs){
+            results = results.concat(logs);
             console.log('finished vanilla50');
-            testTimeout(logs, 150, function(){
+            testTimeout(150, function(logs){
+                results = results.concat(logs);
                 console.log('finished vanilla150');
-                testTimeout(logs, 300, function(){
+                testTimeout(300, function(logs){
+                    results = results.concat(logs);
                     console.log('finished vanilla300');
-                    done(logs);
+                    done(results);
                 });
             });
         });
