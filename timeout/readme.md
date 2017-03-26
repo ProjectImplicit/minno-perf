@@ -20,5 +20,24 @@ Measurement     | player    | String | The name of the measure (minno|vanilla)
 delay           | player    | ms     | The length of the timeout as set in the player
 latency         | player    | ms     | The measured latency of the delay
 
-The results can be found in the [results1 folder](./results1)
-The `Measurement` field does not exist in the [opensesame file](./results1/open-timeout.csv).
+The results can be found in the [results folder](./results)
+The `Measurement` field does not exist in the [opensesame file](./results/open-timeout.csv).
+
+# experiment 2
+This experiment tests the accuracy of a players ability to display a stimulus for a set time.
+In the experiment the player waits for a keypress and then displays the stimulus for a preset time.
+The arduino then measures the actual time that the stimulus was displayed.
+
+The fields for the csv in this experiment are as follows:
+
+Name            | Source    | Units  | Description
+--------------- | --------- | ------ | -----------
+showlatency     | arduino   | us    | The latency between the keypress and the appearance of the stimulus.
+hidelatency     | arduino   | us    | The latency between the appearance of the stimulus and its dissapearance.
+delay           | player    | ms    | The delay time set in the player for the display of the stimulus
+
+The results can be found in the [results_visual folder](./results_visual)
+
+The hideLatency (display duration) can be either higher or lower than required.
+It will be higher if the request was made at the end of a frame and ended at the beginning of a frame.
+It will be lower if the request was made at the beginning of a frame and ended at the end of a frame.

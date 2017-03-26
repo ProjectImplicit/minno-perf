@@ -30,7 +30,7 @@ unsigned long hideTime;
 const int THRESHOLD = 50;
 const int DELAYS_LENGTH = 2;
 const unsigned long int DELAYS[] = {100000, 110000}; // 100ms the delay between keypresses
-unsigned long int delayPointer = 9999; // high enough that it will automatically loop back down to 0
+unsigned int delayPointer = 99; // high enough that it will automatically loop back down to 0
 
 // machine states
 const int CALIBRATE = 0;
@@ -70,7 +70,7 @@ void loop() {
         }
         break;
       case WAIT:
-        if (now - startTime >= DELAYS[delayPointer]) {
+        if (now >= startTime + DELAYS[delayPointer]) {
            Keyboard.write(KEY_SECOND);
            state = LISTEN_HIDE;
         }

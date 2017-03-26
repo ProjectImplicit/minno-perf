@@ -29,7 +29,6 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
                         {
                             conditions: [{type:'inputEquals',value:'first'}],
                             actions: [
-                                {type:'custom', fn: () => console.log('first')},
                                 {type:'showStim',handle:'All'},
                                 {type:'resetTimer'}
                             ]
@@ -37,7 +36,6 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
                         {
                             conditions: [{type:'inputEquals',value:'second'}],
                             actions: [
-                                {type:'custom', fn: () => console.log('second')},
                                 {type: 'log'},
                                 {type:'hideStim',handle:'All'},
                                 {type:'removeInput', handle: 'All'},
@@ -74,6 +72,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
 
         function off(){
             arduinoInputs.push(input.value.substr(1)); // first char caches the keypress from before
+            console.log(arduinoInputs[arduinoInputs.length-1])
             parent.removeChild(input);
             input = null; // don't leak memory
         }
