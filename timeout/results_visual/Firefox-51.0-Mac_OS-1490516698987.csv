@@ -1,4 +1,4 @@
-"Browser","Browser Version","Short Browser Version","Engine","Engine Version","OS","OS Version","measurement","showlatency","hidellatency","delay","measuredto"
+"Browser","Browser Version","Short Browser Version","Engine","Engine Version","OS","OS Version","Measurement","showlatency","hidelatency","delay","measuredto"
 "Firefox","51.0","51","Gecko","51.0","Mac OS","10.11","minno","86984","92008","100","102"
 "Firefox","51.0","51","Gecko","51.0","Mac OS","10.11","minno","69592","108896","110","114"
 "Firefox","51.0","51","Gecko","51.0","Mac OS","10.11","minno","67416","159080","150","153"

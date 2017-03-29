@@ -1,4 +1,4 @@
-"Browser","Browser Version","Short Browser Version","Engine","Engine Version","OS","OS Version","measurement","showlatency","hidellatency","delay","measuredto"
+"Browser","Browser Version","Short Browser Version","Engine","Engine Version","OS","OS Version","Measurement","showlatency","hidelatency","delay","measuredto"
 "Safari","10.0.2","10","WebKit","602.3.12","Mac OS","10.11.6","minno","59348","174576","100","101"
 "Safari","10.0.2","10","WebKit","602.3.12","Mac OS","10.11.6","minno","68668","107624","110","110"
 "Safari","10.0.2","10","WebKit","602.3.12","Mac OS","10.11.6","minno","52956","157800","150","151"

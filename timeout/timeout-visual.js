@@ -12,7 +12,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
             .map(function(row){return row.split(',');})
             .map(function(row){return ['minno'].concat(row);})
             .map(function(row,index){return row.concat(delayMap[index % delayMap.length], minnoLogs[index]);});
-        createCsv(['measurement', 'showlatency', 'hidellatency', 'delay', 'measuredto'], logs);
+        createCsv(['Measurement', 'showlatency', 'hidellatency', 'delay', 'measuredto'], logs);
     });
 
     API.addTrialSets('timer', [{

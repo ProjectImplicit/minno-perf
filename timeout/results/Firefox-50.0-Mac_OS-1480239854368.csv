@@ -1,4 +1,4 @@
-Browser,"Browser Version","Short Browser Version",Engine,"Engine Version",OS,"OS Version",Measurement,delay,latencyatnecy
+Browser,"Browser Version","Short Browser Version",Engine,"Engine Version",OS,"OS Version",Measurement,delay,latency
 "Firefox","50.0","50","Gecko","50.0","Mac OS","10.11","minno","50",50
 "Firefox","50.0","50","Gecko","50.0","Mac OS","10.11","minno","50",50
 "Firefox","50.0","50","Gecko","50.0","Mac OS","10.11","minno","50",55
