@@ -1,4 +1,4 @@
-options(width=160, digits=3) ## Show wide tables
+options(width=260, digits=3) ## Show wide tables
 
 ## Add browser specific columns to opensesame files
 toOpen <- function(open) merge(open, list( Browser='OpenSesame', Browser.Version='2.9.7', Short.Browser.Version='2', Engine=NA, Engine.Version=NA, OS='Mac OS', OS.Version='10.11.6'))
@@ -26,9 +26,9 @@ to$latency <- as.numeric(to$latency)
 to$diff <- to$latency-to$delay
 
 ## Now we can start looking at the data.
-cat('Timeout crosstabs\n')
+cat('\nTimeout crosstabs\n')
 cat('#################\n\n')
-#aggregate(diff~delay+Browser+Measurement, to, function(x) c(summary=summary(x), sd=sd(x)))
+aggregate(diff~delay+Browser+Measurement, to, function(x) c(summary=summary(x), sd=sd(x)))
 
 
 ##################
@@ -53,9 +53,13 @@ to <- rbind(browser, open)
 to$delay <- as.numeric(to$delay)
 to$showlatency <- as.numeric(to$showlatency) / 1000
 to$hidelatency <- as.numeric(to$hidelatency) / 1000
-to$diff <- to$hidelatency-to$delay
+to$displaydiff <- to$hidelatency-to$delay
 
 ## Now we can start looking at the data.
-cat('Timeoutvisual crosstabs\n')
-cat('#################\n\n')
-aggregate(diff~delay+Browser, to, function(x) c(summary=summary(x), sd=sd(x)))
+cat('\nTimeoutvisual react time crosstabs\n')
+cat(  '##################################\n\n')
+aggregate(showlatency~delay+Browser, to, function(x) c(summary=summary(x), sd=sd(x)))
+
+cat('\nTimeoutvisual display time crosstabs\n')
+cat('######################################\n\n')
+aggregate(displaydiff~delay+Browser, to, function(x) c(summary=summary(x), sd=sd(x)))
