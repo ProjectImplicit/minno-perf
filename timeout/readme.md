@@ -26,7 +26,7 @@ The `Measurement` field does not exist in the [opensesame file](./results/open-t
 # experiment 2
 This experiment tests the accuracy of a players ability to display a stimulus for a set time.
 In the experiment the player waits for a keypress and then displays the stimulus for a preset time.
-The arduino then measures the actual time that the stimulus was displayed.
+The arduino then measures the actual time that the stimulus was displayed, and types it into a text input.
 
 The fields for the csv in this experiment are as follows:
 

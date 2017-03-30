@@ -1,4 +1,4 @@
-Browser,"Browser Version","Short Browser Version",Engine,"Engine Version",OS,"OS Version",Measurement,Latnecy
+Browser,"Browser Version","Short Browser Version",Engine,"Engine Version",OS,"OS Version",Measurement,latency
 "Safari","10.0.1","10","WebKit","602.2.14","Mac OS","10.11.6","Minno",95
 "Safari","10.0.1","10","WebKit","602.2.14","Mac OS","10.11.6","Minno",99
 "Safari","10.0.1","10","WebKit","602.2.14","Mac OS","10.11.6","Minno",99

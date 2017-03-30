@@ -1,4 +1,4 @@
-Browser,"Browser Version","Short Browser Version",Engine,"Engine Version",OS,"OS Version",Measurement,Latnecy
+Browser,"Browser Version","Short Browser Version",Engine,"Engine Version",OS,"OS Version",Measurement,latency
 "Chrome","54.0.2840.98","54","WebKit","537.36","Mac OS","10.11.6","Minno",96
 "Chrome","54.0.2840.98","54","WebKit","537.36","Mac OS","10.11.6","Minno",100
 "Chrome","54.0.2840.98","54","WebKit","537.36","Mac OS","10.11.6","Minno",100
