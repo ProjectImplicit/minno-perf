@@ -26,21 +26,6 @@ void setup() {
   Keyboard.begin();
 }
 
-void slowPrint(char chr, int wait){
-  Keyboard.press(chr);
-  delay(wait);
-  Keyboard.releaseAll();
-  delay(wait);      
-}
-
-void slowPrintLn(String str){  
-  const int lngth = str.length();
-  for (int i=0; i <= lngth; i++){
-    slowPrint(str[i], 70);
-  }
-  slowPrint('\n', 300);
-}
-
 void loop() {  
   if (digitalRead(swichPin) == LOW) {
     state = CALIBRATE;
@@ -66,7 +51,9 @@ void loop() {
           hideTime = now;
           delay(100); // let the client bring up the input
           // deltaShow, deltaHide, deltaDisplayed
-          slowPrintLn(String(showTime - startTime) + ',' + String(hideTime - showTime));
+          Keyboard.print(String(showTime - startTime) + ',' + String(hideTime - showTime));
+          Keyboard.print('\n'); // println isn't sending CR for some reason
+          delay(100);
           state = CALIBRATE;
         }
     }
