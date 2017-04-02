@@ -36,9 +36,9 @@ void slowPrint(char chr, int wait){
 void slowPrintLn(String str){  
   const int lngth = str.length();
   for (int i=0; i <= lngth; i++){
-    slowPrint(str[i], 70);
+    slowPrint(str[i], 80);
   }
-  slowPrint('\n', 300);
+  slowPrint('\n', 500);
 }
 
 void loop() {  
