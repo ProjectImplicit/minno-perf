@@ -13,7 +13,7 @@ The arduino measures the time it takes from the initial keypress to the display 
 It also measures the time from the moment the stimulus was displayed to the moment it is hidden (`hidelatency`).
 The player measures the time between keypressed (`playerlatency`).
 
-![diagrame](./frame-rate1.png)
+![diagram](./frame-rate1.png)
 
 The arrows in the diagram represent the various measures as described in the following table:
 
@@ -21,7 +21,7 @@ Name            | Source    | Units | Description
 --------------- | --------- | ----- | -----------
 showlatency     | arduino   | us    | The latency between the first keypress and the appearance of the stimulus.
 hidelatency     | arduino   | us    | The latency between the appearance of the stimulus and its dissapearance.
-delay           | arduino   | us    | The delay before the second keypress as set for this trial.
+delay           | arduino   | us    | The delay from the first keypress to the second keypress as set for this trial.
 playerlatency   | player    | ms    | The latency between the first and second keypress.
 
 The results can be found in the [results](./results) folder.
