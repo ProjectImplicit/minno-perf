@@ -28,7 +28,7 @@ to$diff <- to$latency-to$delay
 ## Now we can start looking at the data.
 cat('\nTimeout crosstabs\n')
 cat('#################\n\n')
-aggregate(diff~delay+Browser+Measurement, to, function(x) c(summary=summary(x), sd=sd(x)))
+aggregate(diff~delay+Browser+OS+Measurement, to, function(x) c(summary=summary(x), sd=sd(x)))
 
 
 ##################
@@ -58,8 +58,8 @@ to$displaydiff <- to$hidelatency-to$delay
 ## Now we can start looking at the data.
 cat('\nTimeoutvisual react time crosstabs\n')
 cat(  '##################################\n\n')
-aggregate(showlatency~delay+Browser, to, function(x) c(summary=summary(x), sd=sd(x)))
+aggregate(showlatency~delay+Browser+OS, to, function(x) c(summary=summary(x), sd=sd(x)))
 
 cat('\nTimeoutvisual display time crosstabs\n')
 cat('######################################\n\n')
-aggregate(displaydiff~delay+Browser, to, function(x) c(summary=summary(x), sd=sd(x)))
+aggregate(displaydiff~delay+Browser+OS, to, function(x) c(summary=summary(x), sd=sd(x)))

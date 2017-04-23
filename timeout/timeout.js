@@ -45,7 +45,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
 
     function minnoMap(log, index){
         var latency = log.latency;
-        var delay = 50 + 50 * (index % 3);
+        var delay = {0:50, 1:150, 2:300}[index % 3];
         return ['minno', delay, latency];
     }
 

@@ -30,8 +30,8 @@ to$clean.diff <- to$hidelatency - to$delay - to$showlatency
 ## Now we can start looking at the data.
 cat('\nresponse-cycle display time crosstabs\n')
 cat(  '#################################\n\n')
-aggregate(diff~delay+Browser+Measurement, to, function(x) c(summary=summary(x), sd=sd(x)))
+aggregate(diff~delay+Browser+OS+Measurement, to, function(x) c(summary=summary(x), sd=sd(x)))
 
 cat('\nresponse-cycle display time crosstabs (clean showlatency)\n')
 cat(  '#################################\n\n')
-aggregate(clean.diff~delay+Browser+Measurement, to, function(x) c(summary=summary(x), sd=sd(x)))
+aggregate(clean.diff~delay+Browser+OS+Measurement, to, function(x) c(summary=summary(x), sd=sd(x)))
