@@ -3,7 +3,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
     var API = new APIconstructor();
     var REPEAT_TIMES = 100;
     var arduinoInputs = window.arduinoInputs = [];
-    var delayMap = [100,110,150];
+    var delayMap = [100,110,150,400,800];
 
     API.addSettings('redirect', location.href + '#'); // prevent redirect so we have a chance to download...
     API.addSettings('onEnd', function(){
@@ -12,7 +12,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
             .map(function(row){return row.split(',');})
             .map(function(row){return ['minno'].concat(row);})
             .map(function(row,index){return row.concat(delayMap[index % delayMap.length], minnoLogs[index]);});
-        createCsv(['Measurement', 'showlatency', 'hidellatency', 'delay', 'measuredto'], logs);
+        createCsv(['Measurement', 'showlatency', 'hidelatency', 'delay', 'measuredto'], logs);
     });
 
     API.addTrialSets('timer', [{
@@ -52,7 +52,9 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
             data: [
                 {inherit:'timer', data:{delay:100}},
                 {inherit:'timer', data:{delay:110}},
-                {inherit:'timer', data:{delay:150}}
+                {inherit:'timer', data:{delay:150}},
+                {inherit:'timer', data:{delay:400}},
+                {inherit:'timer', data:{delay:800}}
             ]
         }
     ]);

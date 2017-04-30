@@ -56,10 +56,10 @@ to$hidelatency <- as.numeric(to$hidelatency) / 1000
 to$displaydiff <- to$hidelatency-to$delay
 
 ## Now we can start looking at the data.
-cat('\nTimeoutvisual react time crosstabs\n')
+cat('\nTimeoutvisual react time crosstabs (click -> show)\n')
 cat(  '##################################\n\n')
 aggregate(showlatency~delay+Browser+OS, to, function(x) c(summary=summary(x), sd=sd(x)))
 
-cat('\nTimeoutvisual display time crosstabs\n')
+cat('\nTimeoutvisual display time crosstabs (show->hide)\n')
 cat('######################################\n\n')
-aggregate(displaydiff~delay+Browser+OS, to, function(x) c(summary=summary(x), sd=sd(x)))
+aggregate(hidelatency~delay+Browser+OS, to, function(x) c(summary=summary(x), sd=sd(x)))

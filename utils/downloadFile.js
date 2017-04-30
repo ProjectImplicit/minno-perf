@@ -83,7 +83,7 @@ define(function(){
                 eventObj.initEvent('click', true, true);
                 a.dispatchEvent(eventObj);
             }
-            D.body.removeChild(a);
+            //D.body.removeChild(a);
 
         }, 100);
     }

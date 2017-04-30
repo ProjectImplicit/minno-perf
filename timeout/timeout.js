@@ -35,7 +35,9 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
             data: [
                 {inherit: 'timeout', data: {duration:50}},
                 {inherit: 'timeout', data: {duration:150}},
-                {inherit: 'timeout', data: {duration:300}}
+                {inherit: 'timeout', data: {duration:300}},
+                {inherit: 'timeout', data: {duration:800}}
+
             ]
         }
         
@@ -45,7 +47,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
 
     function minnoMap(log, index){
         var latency = log.latency;
-        var delay = {0:50, 1:150, 2:300}[index % 3];
+        var delay = {0:50, 1:150, 2:300,3:800}[index % 4];
         return ['minno', delay, latency];
     }
 
@@ -77,7 +79,11 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
                 testTimeout(300, function(logs){
                     results = results.concat(logs);
                     console.log('finished vanilla300');
-                    done(results);
+                    testTimeout(800, function(logs){
+                        results = results.concat(logs);
+                        console.log('finished vanilla800');
+                        done(results);
+                    });
                 });
             });
         });
