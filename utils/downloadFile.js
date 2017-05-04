@@ -74,6 +74,7 @@ define(function(){
         a.href = rawFile;
         a.setAttribute('style', 'display:none;');
         D.body.appendChild(a);
+		console.log(a)
         setTimeout(function() {
             if (a.click) {
                 a.click();
@@ -82,7 +83,7 @@ define(function(){
                 var eventObj = document.createEvent('MouseEvents');
                 eventObj.initEvent('click', true, true);
                 a.dispatchEvent(eventObj);
-            }
+            }			
             //D.body.removeChild(a);
 
         }, 100);
