@@ -1,7 +1,7 @@
 options(width=260, digits=3) ## Show wide tables
 
 ## Add browser specific columns to opensesame files
-toOpen <- function(open) merge(open, list( Browser='OpenSesame', Browser.Version='2.9.7', Short.Browser.Version='2', Engine=NA, Engine.Version=NA, OS='Mac OS', OS.Version='10.11.6'))
+toOpen <- function(open) merge(open, list( Browser='OpenSesame', Browser.Version='0.27.4', Short.Browser.Version='0.27', Engine=NA, Engine.Version=NA, OS='Ubuntu', OS.Version='16.04'))
 
 ###########
 # timeout #
