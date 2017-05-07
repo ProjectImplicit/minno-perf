@@ -37,6 +37,21 @@ int averageRead(){
   return (int) sum / ROUNDS;
 }
 
+void slowPrint(char chr, int wait){
+  Keyboard.press(chr);
+  delay(wait);
+  Keyboard.releaseAll();
+  delay(wait);      
+}
+
+void slowPrintLn(String str){  
+  const int lngth = str.length();
+  for (int i=0; i <= lngth; i++){
+    slowPrint(str[i], 5);
+  }
+  slowPrint('\n', 200);
+}
+
 void loop() {
   if (digitalRead(swichPin) == LOW) {
     state = CALIBRATE;
@@ -57,10 +72,8 @@ void loop() {
       case LISTEN_HIDE:
         if (averageRead() < THRESHOLD) {
           hideTime = now;
-          delay(120); // let the client bring up the input
-          Keyboard.print(String(showTime - startTime) + ',' + String(hideTime - showTime));
-          Keyboard.print('\n'); // println isn't sending CR for some reason
-          delay(120);
+          delay(200); // let the client bring up the input
+          slowPrintLn(String(showTime - startTime) + ',' + String(hideTime - showTime));
           state = CALIBRATE;
         }
     }

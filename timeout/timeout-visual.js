@@ -7,7 +7,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
 
     API.addSettings('redirect', location.href + '#'); // prevent redirect so we have a chance to download...
     API.addSettings('onEnd', function(){
-        var minnoLogs = window.piGlobal.current.logs.map(function(a) {return a.latency});
+        var minnoLogs = window.piGlobal.current.logs.map(function(a) {return a.latency;});
         var logs = arduinoInputs
             .map(function(row){return row.split(',');})
             .map(function(row){return ['minno'].concat(row);})
