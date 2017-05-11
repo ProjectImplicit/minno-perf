@@ -23,6 +23,9 @@ latency         | player    | ms     | The measured latency of the delay
 The results can be found in the [results folder](./results)
 The `Measurement` field does not exist in the [opensesame file](./results/open-timeout.csv).
 
+Notably, tabs out of focus immediately lose the validity of their timers (see for example [here](http://stackoverflow.com/questions/15871942/how-do-browsers-pause-change-javascript-when-tab-or-window-is-not-active).
+In particular Safari is sensitive to this and clamps all timeouts after about three minutes without active user interactions (in the tests we use an input to simulate user input).
+
 # experiment 2
 This experiment tests the accuracy of a players ability to display a stimulus for a set time.
 In the experiment the player waits for a keypress and then displays the stimulus for a preset time.

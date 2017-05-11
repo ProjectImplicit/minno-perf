@@ -3,6 +3,14 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
     var API = new APIconstructor();
     var REPEAT_TIMES = 100;
 
+    var input = document.createElement('input');
+    input.style.position = 'fixed';
+    input.style.top = 0;
+    input.style.left = 0;
+    input.style.color = 'black';
+    document.body.appendChild(input);
+    input.focus();
+
     API.addSettings('redirect', location.href + '#'); // prevent redirect so we have a chance to download...
 
     API.addSettings('onEnd', function(){
