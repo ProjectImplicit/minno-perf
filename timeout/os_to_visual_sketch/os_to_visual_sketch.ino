@@ -9,7 +9,7 @@ unsigned long startTime;
 unsigned long showTime;
 unsigned long hideTime;
 
-const int THRESHOLD = 50;
+const int THRESHOLD = 700;
 
 // machine states
 const int CALIBRATE = 0;

@@ -8,7 +8,7 @@ const int KEY_FIRST = 65; // A
 unsigned long startTime;
 unsigned long endTime;
 
-const int THRESHOLD = 5;
+const int THRESHOLD = 700;
 
 // machine states
 const int CALIBRATE = 0;

@@ -11,7 +11,7 @@ unsigned long startTime;
 unsigned long showTime;
 unsigned long hideTime;
 
-const int THRESHOLD = 50;
+const int THRESHOLD = 700;
 const int DELAYS_LENGTH = 2;
 const unsigned long int DELAYS[] = {100000, 110000}; // 100ms the delay between keypresses
 unsigned long int delayPointer = 9999; // high enough that it will automatically loop back down to 0
