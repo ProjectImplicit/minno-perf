@@ -3,30 +3,33 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
     var API = new APIconstructor();
     var REPEAT_TIMES = 100;
     var arduinoInputs = window.arduinoInputs = [];
-    var delayMap = [100,110,150,400,800];
-
-    // setup input
+    var delayMap = [50,100,110,1000];
+    var mainStim = {media :' ', css: {background:'white', width:'100%', height:'100%'}};
+    var allStim = [mainStim]
+        .concat(
+            [5, 15, 25, 35, 45, 55, 65, 75, 85, 95]
+                .map(function(left){
+                    return {media :{html:'<div></div>'}, css: {background:'red'}, size: {width:5, height:5}, location:{top:5, left:left}};
+                }),
+            [5, 15, 25, 35, 45, 55, 65, 75, 85, 95]
+                .map(function(left){
+                    return {media :{html:'<div></div>'}, css: {background:'red'}, size: {width:5, height:5}, location:{bottom:5, left:left}};
+                })
+        );
 
     API.addSettings('redirect', location.href + '#'); // prevent redirect so we have a chance to download...
     API.addSettings('onEnd', function(){
         var minnoLogs = window.piGlobal.current.logs.map(function(a) {return a.latency;});
         var logs = arduinoInputs
-            .map(function(row){return row.split(',');})
-            .map(function(row){return ['minno'].concat(row);})
-            .map(function(row,index){return row.concat(delayMap[index % delayMap.length], minnoLogs[index]);});
+        .map(function(row){return row.split(',');})
+        .map(function(row){return ['minno'].concat(row);})
+        .map(function(row,index){return row.concat(delayMap[index % delayMap.length], minnoLogs[index]);});
         createCsv(['Measurement', 'showlatency', 'hidelatency', 'delay', 'measuredto'], logs);
     });
 
     API.addTrialSets('timer', [{
         input: [ {handle: 'first',on: 'keypressed',key:65} ],
-        stimuli: [
-            {media :' ', css: {background:'white', width:'100%', height:'100%'}},
-            //{media :' ', css: {background:'red', width:'100%', height:'100%'}},
-            //{media :' ', css: {background:'blue', width:'100%', height:'100%'}},
-            //{media :' ', css: {background:'green', width:'100%', height:'100%'}},
-            //{media :' ', css: {background:'yellow', width:'100%', height:'100%'}},
-            //{media :' ', css: {background:'gray', width:'100%', height:'100%'}}
-        ],
+        stimuli: allStim,
         interactions: [
             {
                 conditions: [{type:'inputEquals',value:'first'}],
@@ -34,7 +37,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
                     {type:'showStim',handle:'All'},
                     {type:'removeInput', handle: 'All'},
                     {type:'resetTimer'},
-                    {type: 'setInput', input: {on:'timeout', handle:'time', duration: '<%= trialData.delay %>'}}
+                    //{type: 'setInput', input: {on:'timeout', handle:'time', duration: '<%= trialData.delay %>'}}
                 ]
             },
             {
@@ -64,13 +67,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
         {
             mixer: 'repeat',
             times: REPEAT_TIMES,
-            data: [
-                {inherit:'timer', data:{delay:100}},
-                {inherit:'timer', data:{delay:110}},
-                {inherit:'timer', data:{delay:150}},
-                {inherit:'timer', data:{delay:400}},
-                {inherit:'timer', data:{delay:800}}
-            ]
+            data: delayMap.map(function(delay){return {inherit:'timer', data:{delay:delay}};})
         }
     ]);
 

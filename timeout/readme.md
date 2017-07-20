@@ -28,8 +28,10 @@ In particular Safari is sensitive to this and clamps all timeouts after about th
 
 # experiment 2 (timeout-visual)
 This experiment tests the accuracy of a players ability to display a stimulus for a set time.
-In the experiment the player waits for a keypress and then displays the stimulus for a preset time (100/110/150/400/800 ms).
+In the experiment, the player waits for a keypress and then displays the stimulus for a preset time (50/100/110/1000 ms).
 The arduino then measures the actual time that the stimulus was displayed.
+
+The player is set to display multiple stimuli, to make sure that the additional stimuli do not cause a delay.
 
 ![diagram](./timeout-visual.png)
 
