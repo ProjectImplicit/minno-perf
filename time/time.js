@@ -7,8 +7,15 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
 
     API.addSettings('onEnd', function(){
         var logs = window.piGlobal.current.logs.map(function(log){return log.latency;});
-        statistics(logs);
-        createCsv(['Measurement', 'latency'], logs.map(function(v){return ['minno', v];}));
+        var minnoLogs = logs.map(function(v){return ['minno', v];});
+        vanilla(function(vanillaLogs){
+            var allLogs = vanillaLogs.concat(minnoLogs);
+            console.log('minno stats:');
+            statistics(logs);
+            console.log('vanilla stats:');
+            statistics(vanillaLogs.map(function(l){return l[1];}));
+            createCsv(['Measurement', 'latency'], allLogs);
+        });
     });
 
     API.addSequence([
@@ -46,4 +53,22 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
     ]);
 
     return API.script;
+
+    function vanilla(cb){
+        var logs = [];
+        var begin;
+        document.addEventListener('keydown', listener);
+        function listener(e){
+            if (e.which === 65) begin = now();
+            if (e.which === 66 && begin) logs.push(['vanilla', now() - begin]);
+            if (logs.length >= REPEAT_TIMES) {
+                document.removeEventListener('keydown', listener);
+                cb(logs);
+            }
+        }
+    }
+
+    function now(){
+        return performance ? performance.now() : Date.now();
+    }
 });
