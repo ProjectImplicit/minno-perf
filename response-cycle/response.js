@@ -1,14 +1,27 @@
 define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(APIconstructor, statistics, createCsv) {
 
     var API = new APIconstructor();
-    var REPEAT_TIMES = 200;
+    var REPEAT_TIMES = 10;
+    var delayMap = [300,700];
     var arduinoInputs = window.arduinoInputs = [];
+    var mainStim = {media :' ', css: {background:'white', width:'100%', height:'100%'}};
+    var allStim = [mainStim]
+        .concat(
+            [5, 15, 25, 35, 45, 55, 65, 75, 85, 95]
+                .map(function(left){
+                    return {media :{html:'<div></div>'}, css: {background:'red'}, size: {width:5, height:5}, location:{top:5, left:left}};
+                }),
+            [5, 15, 25, 35, 45, 55, 65, 75, 85, 95]
+                .map(function(left){
+                    return {media :{html:'<div></div>'}, css: {background:'red'}, size: {width:5, height:5}, location:{bottom:5, left:left}};
+                })
+        );
 
     API.addSettings('redirect', location.href + '#'); // prevent redirect so we have a chance to download...
     API.addSettings('onEnd', function(){
         var logs = window.piGlobal.current.logs.map(function(log){return log.latency;});
         var arduino = arduinoInputs.map(function(row){return row.split(',');});
-        var minnoLogs =  logs.map(function(log,index){return ['minno', log].concat(arduino[index]);});
+        var minnoLogs = logs.map(function(log,index){return ['minno', log].concat(arduino[index], delayMap[index % delayMap.length]);});
         createCsv(['Measurement', 'Player Latency','showlatency', 'hidelatency', 'delay'], minnoLogs);
     });
 
@@ -23,7 +36,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
                         {handle: 'second',on: 'keypressed',key:66}
                     ],
 
-                    stimuli: [ {media :' ', css: {background:'white', width:'100%', height:'100%'}} ],
+                    stimuli: allStim,
 
                     interactions: [
                         {
@@ -57,24 +70,21 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
     return API.script;
 
     function arduinolisten(){
-        var parent = document.body;
-        var input = null;
+        var result='';
+        var listener;
+
         function on(cb){
-            input = document.createElement('input');
-            input.style.position = 'fixed';
-            input.style.opacity = 0;
-            parent.appendChild(input);
-            input.focus();
-            input.addEventListener('keydown', function(e){
-                if (e.which === 13) cb(e, 'keydown'); 
+            document.addEventListener('keydown', listener = function(e){
+                if (e.which === 13) {e.preventDefault(); return cb(e, 'keydown');}
+                var key = e.keyCode;
+                result += key === 188 ? ',' : String.fromCharCode(key);
             });
         }
 
         function off(){
-            arduinoInputs.push(input.value.substr(1)); // first char caches the keypress from before
-            console.log(arduinoInputs[arduinoInputs.length-1])
-            parent.removeChild(input);
-            input = null; // don't leak memory
+            arduinoInputs.push(result); // first char caches the keypress from before
+            result='';
+            document.removeEventListener('keydown', listener);
         }
 
         return {handle: 'arduinoValue', on:on, off:off};
