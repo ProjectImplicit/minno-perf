@@ -35,7 +35,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
                         {
                             conditions: [{type:'inputEquals',value:'first'}],
                             actions: [
-                                {type:'resetTimer'}
+                                {type:'resetTimer',immidiate:true}
                             ]
                         },
                         {
