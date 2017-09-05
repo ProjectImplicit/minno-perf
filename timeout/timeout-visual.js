@@ -37,7 +37,7 @@ define(['pipAPI', '../utils/statistics.js', '../utils/createCsv.js'], function(A
                     {type:'showStim',handle:'All'},
                     {type:'removeInput', handle: 'All'},
                     {type:'resetTimer'},
-                    //{type: 'setInput', input: {on:'timeout', handle:'time', duration: '<%= trialData.delay %>'}}
+                    {type: 'setInput', input: {on:'timeout', handle:'time', duration: '<%= trialData.delay %>'}}
                 ]
             },
             {
