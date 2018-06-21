@@ -16,7 +16,7 @@ Folder                      | Description
 
 ### Results
 
-Results for each experiment can be found in a results folder. 
+Results for each experiment can be found in the results folder. 
 The results are recorded in a separate csv file for each player (each combination of OS & browser is considered a separate player as well os OpenSesame).
 OpenSesame files are always prefixed with `open` such as `open-time.csv`.
 Minno files are named according to the browser and the following scheme: `{Browser}-{Browser Version}-{OS}-{timestamp}.csv`.
